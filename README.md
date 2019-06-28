@@ -40,7 +40,7 @@ public class AlipayAuthApi {
         param.setOrderTitle("voucher-" + orderNo);
         param.setAmount("0.01");
         param.setPayTimeOut("5m");
-        // param.setNotifyUrl("http://36.110.6.174:9181/test/anotify");
+        // param.setNotifyUrl("http://ip:host/test/anotify");
         return alipayTemplate.fundAuthOrderVoucherCreate(param);
     }
 
