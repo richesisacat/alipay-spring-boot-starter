@@ -1,6 +1,17 @@
 # 对支付宝支付接口的简单封装
 
+# 配置文件application.yml
+```
+alipay:
+  appid: 
+  charset: utf_8
+  alipay-public-key: 
+  app-private-key: 
+  sign-type: rsa2
+```
 # 预售权相关接口调用示例
+
+
 ```
 @RestController
 @RequestMapping("/alipay_auth")
