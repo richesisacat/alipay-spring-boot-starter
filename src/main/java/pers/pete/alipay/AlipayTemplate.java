@@ -1,11 +1,12 @@
 package pers.pete.alipay;
 
 import com.alipay.api.AlipayApiException;
+import com.alipay.api.AlipayClient;
+import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.response.AlipayFundAuthOperationDetailQueryResponse;
 import com.alipay.api.response.AlipayFundAuthOrderFreezeResponse;
 import com.alipay.api.response.AlipayFundAuthOrderUnfreezeResponse;
 import com.alipay.api.response.AlipayFundAuthOrderVoucherCreateResponse;
-import com.alipay.api.response.AlipayTradeCloseResponse;
 import com.alipay.api.response.AlipayTradePayResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
@@ -35,62 +36,57 @@ public class AlipayTemplate {
     if (null == signType) {
       signType = SignType.RSA2;
     }
-    alipayAuthService = new AlipayAuthService(appid, appPrivateKey, charset, alipayPublicKey, signType);
+    AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do", appid, appPrivateKey, "json", charset.getValue(), alipayPublicKey, signType.name());
+    alipayAuthService = new AlipayAuthService(appid, alipayClient);
   }
 
   /**
-   * 资金授权冻结接口(商户扫用户).
+   * auth-1 资金授权冻结(商户扫用户).
    */
   public AlipayFundAuthOrderFreezeResponse fundAuthOrderFreeze(OrderFreezeParam param) throws AlipayApiException {
     return alipayAuthService.fundAuthOrderFreeze(param);
   }
 
   /**
-   * 资金授权发码(用户扫商户).
+   * auth-2 资金授权发码(用户扫商户).
    */
   public AlipayFundAuthOrderVoucherCreateResponse fundAuthOrderVoucherCreate(VoucherParam param) throws AlipayApiException {
     return alipayAuthService.fundAuthOrderVoucherCreate(param);
   }
 
   /**
-   * 资金授权解冻.
+   * auth-3 资金授权解冻.
    */
   public AlipayFundAuthOrderUnfreezeResponse fundAuthOrderUnFreeze(UnfreezeParam param) throws AlipayApiException {
     return alipayAuthService.fundAuthOrderUnFreeze(param);
   }
 
   /**
-   * 交易创建并支付接口(预售权转消费).
+   * auth-4 交易创建并支付(预售权转消费).
    */
-  public AlipayTradePayResponse tradePay(TradePayParam param) throws AlipayApiException {
-    return alipayAuthService.tradePay(param);
+  public AlipayTradePayResponse fundAuthTradePay(TradePayParam param) throws AlipayApiException {
+    return alipayAuthService.fundAuthTradePay(param);
   }
 
   /**
-   * 资金授权操作查询.
+   * auth-5 资金授权操作查询.
    */
   public AlipayFundAuthOperationDetailQueryResponse fundAuthQuery(DetailParam param) throws AlipayApiException {
     return alipayAuthService.fundAuthQuery(param);
   }
 
   /**
-   * 交易同步退款接口.
+   * auth-6 交易同步退款.
    */
-  public AlipayTradeRefundResponse tradeRefund(TradeRefundParam param) throws AlipayApiException {
+  public AlipayTradeRefundResponse fundAuthTradeRefund(TradeRefundParam param) throws AlipayApiException {
     return alipayAuthService.tradeRefund(param);
   }
 
   /**
-   * 交易结果接口.
+   * auth-7 交易结果查询.
    */
-  public AlipayTradeQueryResponse tradeQuery(String outTradeNo, String appAuthToken) throws AlipayApiException {
+  public AlipayTradeQueryResponse fundAuthTradeQuery(String outTradeNo, String appAuthToken) throws AlipayApiException {
     return alipayAuthService.tradeQuery(outTradeNo, appAuthToken);
   }
 
-  /**
-   * 交易关闭接口.
-   */
-  public AlipayTradeCloseResponse tradeClose(String outTradeNo, String appAuthToken) throws AlipayApiException {
-    return alipayAuthService.tradeClose(outTradeNo, appAuthToken);
-  }
 }

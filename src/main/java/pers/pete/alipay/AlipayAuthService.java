@@ -3,7 +3,6 @@ package pers.pete.alipay;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.AlipayRequest;
-import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.domain.AlipayFundAuthOperationDetailQueryModel;
 import com.alipay.api.domain.AlipayFundAuthOrderFreezeModel;
 import com.alipay.api.domain.AlipayFundAuthOrderUnfreezeModel;
@@ -30,8 +29,6 @@ import com.alipay.api.response.AlipayTradeQueryResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
-import pers.pete.alipay.enums.Charset;
-import pers.pete.alipay.enums.SignType;
 import pers.pete.alipay.request.CommonParam;
 import pers.pete.alipay.request.DetailParam;
 import pers.pete.alipay.request.OrderFreezeParam;
@@ -47,9 +44,9 @@ public class AlipayAuthService {
 
   private String appid;
 
-  public AlipayAuthService(String appid, String appPrivateKey, Charset charset, String alipayPublicKey, SignType signType) {
+  public AlipayAuthService(String appid, AlipayClient alipayClient) {
     this.appid = appid;
-    this.alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do", appid, appPrivateKey, "json", charset.getValue(), alipayPublicKey, signType.name());
+    this.alipayClient = alipayClient;
   }
 
   /**
@@ -158,7 +155,7 @@ public class AlipayAuthService {
    * <p>
    * alipay.trade.pay
    */
-  public AlipayTradePayResponse tradePay(TradePayParam param) throws AlipayApiException {
+  public AlipayTradePayResponse fundAuthTradePay(TradePayParam param) throws AlipayApiException {
     AlipayTradePayRequest request = new AlipayTradePayRequest();
     AlipayTradePayModel model = new AlipayTradePayModel();
     model.setOutTradeNo(param.getOutTradeNo());
