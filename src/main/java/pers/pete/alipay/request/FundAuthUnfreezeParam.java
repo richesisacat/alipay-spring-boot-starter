@@ -1,6 +1,6 @@
 package pers.pete.alipay.request;
 
-public class UnfreezeParam extends CommonParam {
+public class FundAuthUnfreezeParam extends CommonParam {
 
   /**
    * 必选 支付宝资金授权订单号，在授权冻结成功时返回需要入库保存

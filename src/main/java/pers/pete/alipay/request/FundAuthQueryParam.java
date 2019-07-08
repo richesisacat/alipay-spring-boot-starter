@@ -1,6 +1,6 @@
 package pers.pete.alipay.request;
 
-public class DetailParam extends CommonParam {
+public class FundAuthQueryParam extends CommonParam {
 
   /**
    * 支付宝订单号

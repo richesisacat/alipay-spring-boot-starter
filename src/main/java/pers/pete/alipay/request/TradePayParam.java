@@ -8,9 +8,9 @@ public class TradePayParam extends CommonParam {
   private String outTradeNo;
 
   /**
-   * 必填 支付宝资金授权订单号，在授权冻结成功时返回需要入库保存
+   * 必填 支付授权码
    */
-  private String authNo;
+  private String authCode;
 
   /**
    * 必填 订单标题
@@ -18,20 +18,14 @@ public class TradePayParam extends CommonParam {
   private String subject;
 
   /**
-   * 必填 买家id 预授权冻结接口返回 查询接口返回
-   */
-  private String buyerId;
-
-  /**
-   * 选填 订单描述
-   */
-  private String body;
-
-  /**
-   * 必填 订单金额
+   * 必选 订单总金额 单位为元，精确到小数点后两位
    */
   private String totalAmount;
 
+  /**
+   * 可选 对交易或商品的描述
+   */
+  private String body;
 
   public String getOutTradeNo() {
     return outTradeNo;
@@ -41,12 +35,12 @@ public class TradePayParam extends CommonParam {
     this.outTradeNo = outTradeNo;
   }
 
-  public String getAuthNo() {
-    return authNo;
+  public String getAuthCode() {
+    return authCode;
   }
 
-  public void setAuthNo(String authNo) {
-    this.authNo = authNo;
+  public void setAuthCode(String authCode) {
+    this.authCode = authCode;
   }
 
   public String getSubject() {
@@ -57,12 +51,12 @@ public class TradePayParam extends CommonParam {
     this.subject = subject;
   }
 
-  public String getBuyerId() {
-    return buyerId;
+  public String getTotalAmount() {
+    return totalAmount;
   }
 
-  public void setBuyerId(String buyerId) {
-    this.buyerId = buyerId;
+  public void setTotalAmount(String totalAmount) {
+    this.totalAmount = totalAmount;
   }
 
   public String getBody() {
@@ -71,13 +65,5 @@ public class TradePayParam extends CommonParam {
 
   public void setBody(String body) {
     this.body = body;
-  }
-
-  public String getTotalAmount() {
-    return totalAmount;
-  }
-
-  public void setTotalAmount(String totalAmount) {
-    this.totalAmount = totalAmount;
   }
 }

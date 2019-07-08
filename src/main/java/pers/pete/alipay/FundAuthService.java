@@ -7,44 +7,38 @@ import com.alipay.api.domain.AlipayFundAuthOperationDetailQueryModel;
 import com.alipay.api.domain.AlipayFundAuthOrderFreezeModel;
 import com.alipay.api.domain.AlipayFundAuthOrderUnfreezeModel;
 import com.alipay.api.domain.AlipayFundAuthOrderVoucherCreateModel;
-import com.alipay.api.domain.AlipayTradeCloseModel;
 import com.alipay.api.domain.AlipayTradePayModel;
-import com.alipay.api.domain.AlipayTradeQueryModel;
 import com.alipay.api.domain.AlipayTradeRefundModel;
 import com.alipay.api.request.AlipayFundAuthOperationDetailQueryRequest;
 import com.alipay.api.request.AlipayFundAuthOrderFreezeRequest;
 import com.alipay.api.request.AlipayFundAuthOrderUnfreezeRequest;
 import com.alipay.api.request.AlipayFundAuthOrderVoucherCreateRequest;
-import com.alipay.api.request.AlipayTradeCloseRequest;
 import com.alipay.api.request.AlipayTradePayRequest;
-import com.alipay.api.request.AlipayTradeQueryRequest;
 import com.alipay.api.request.AlipayTradeRefundRequest;
 import com.alipay.api.response.AlipayFundAuthOperationDetailQueryResponse;
 import com.alipay.api.response.AlipayFundAuthOrderFreezeResponse;
 import com.alipay.api.response.AlipayFundAuthOrderUnfreezeResponse;
 import com.alipay.api.response.AlipayFundAuthOrderVoucherCreateResponse;
-import com.alipay.api.response.AlipayTradeCloseResponse;
 import com.alipay.api.response.AlipayTradePayResponse;
-import com.alipay.api.response.AlipayTradeQueryResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import pers.pete.alipay.request.CommonParam;
-import pers.pete.alipay.request.DetailParam;
-import pers.pete.alipay.request.OrderFreezeParam;
-import pers.pete.alipay.request.TradePayParam;
+import pers.pete.alipay.request.FundAuthOrderFreezeParam;
+import pers.pete.alipay.request.FundAuthQueryParam;
+import pers.pete.alipay.request.FundAuthTradePayParam;
+import pers.pete.alipay.request.FundAuthUnfreezeParam;
+import pers.pete.alipay.request.FundAuthVoucherParam;
 import pers.pete.alipay.request.TradeRefundParam;
-import pers.pete.alipay.request.UnfreezeParam;
-import pers.pete.alipay.request.VoucherParam;
 
 @Slf4j
-public class AlipayAuthService {
+public class FundAuthService {
 
   private AlipayClient alipayClient;
 
   private String appid;
 
-  public AlipayAuthService(String appid, AlipayClient alipayClient) {
+  public FundAuthService(String appid, AlipayClient alipayClient) {
     this.appid = appid;
     this.alipayClient = alipayClient;
   }
@@ -54,7 +48,7 @@ public class AlipayAuthService {
    * <p>
    * https://docs.open.alipay.com/api_28/alipay.fund.auth.order.freeze
    */
-  public AlipayFundAuthOrderFreezeResponse fundAuthOrderFreeze(OrderFreezeParam param) throws AlipayApiException {
+  public AlipayFundAuthOrderFreezeResponse fundAuthOrderFreeze(FundAuthOrderFreezeParam param) throws AlipayApiException {
     AlipayFundAuthOrderFreezeRequest request = new AlipayFundAuthOrderFreezeRequest();
     AlipayFundAuthOrderFreezeModel model = new AlipayFundAuthOrderFreezeModel();
     model.setAuthCode(param.getAuthCode());  //  填写用户支付宝钱包中的付款码
@@ -81,7 +75,7 @@ public class AlipayAuthService {
    * <p>
    * https://docs.open.alipay.com/api_28/alipay.fund.auth.order.voucher.create
    */
-  public AlipayFundAuthOrderVoucherCreateResponse fundAuthOrderVoucherCreate(VoucherParam param) throws AlipayApiException {
+  public AlipayFundAuthOrderVoucherCreateResponse fundAuthOrderVoucherCreate(FundAuthVoucherParam param) throws AlipayApiException {
     AlipayFundAuthOrderVoucherCreateRequest request = new AlipayFundAuthOrderVoucherCreateRequest();
     AlipayFundAuthOrderVoucherCreateModel model = new AlipayFundAuthOrderVoucherCreateModel();
     model.setOutOrderNo(param.getOutOrderNo());
@@ -110,7 +104,7 @@ public class AlipayAuthService {
    * <p>
    * https://docs.open.alipay.com/api_28/alipay.fund.auth.order.unfreeze
    */
-  public AlipayFundAuthOrderUnfreezeResponse fundAuthOrderUnFreeze(UnfreezeParam param) throws AlipayApiException {
+  public AlipayFundAuthOrderUnfreezeResponse fundAuthOrderUnFreeze(FundAuthUnfreezeParam param) throws AlipayApiException {
     AlipayFundAuthOrderUnfreezeRequest request = new AlipayFundAuthOrderUnfreezeRequest();
     AlipayFundAuthOrderUnfreezeModel model = new AlipayFundAuthOrderUnfreezeModel();
     model.setAuthNo(param.getAuthNo());  //  支付宝资金授权订单号，在授权冻结成功时返回需要入库保存
@@ -133,7 +127,7 @@ public class AlipayAuthService {
    * <p>
    * https://docs.open.alipay.com/api_28/alipay.fund.auth.operation.detail.query
    */
-  public AlipayFundAuthOperationDetailQueryResponse fundAuthQuery(DetailParam param) throws AlipayApiException {
+  public AlipayFundAuthOperationDetailQueryResponse fundAuthQuery(FundAuthQueryParam param) throws AlipayApiException {
     AlipayFundAuthOperationDetailQueryRequest request = new AlipayFundAuthOperationDetailQueryRequest();
     AlipayFundAuthOperationDetailQueryModel model = new AlipayFundAuthOperationDetailQueryModel();
     model.setAuthNo(param.getAuthNo()); // 支付宝资金授权订单号，在授权冻结成功时返回参数中获得
@@ -155,7 +149,7 @@ public class AlipayAuthService {
    * <p>
    * alipay.trade.pay
    */
-  public AlipayTradePayResponse fundAuthTradePay(TradePayParam param) throws AlipayApiException {
+  public AlipayTradePayResponse fundAuthTradePay(FundAuthTradePayParam param) throws AlipayApiException {
     AlipayTradePayRequest request = new AlipayTradePayRequest();
     AlipayTradePayModel model = new AlipayTradePayModel();
     model.setOutTradeNo(param.getOutTradeNo());
@@ -198,42 +192,6 @@ public class AlipayAuthService {
       request.putOtherTextParam("app_auth_token", param.getAppAuthToken());
     }
     AlipayTradeRefundResponse response = alipayClient.execute(request);
-    log.info("response: {}" + response.getBody());
-    return response;
-  }
-
-  /**
-   * 交易结果接口.
-   * <p>
-   * https://docs.open.alipay.com/api_1/alipay.trade.query
-   */
-  public AlipayTradeQueryResponse tradeQuery(String outTradeNo, String appAuthToken) throws AlipayApiException {
-    AlipayTradeQueryRequest request = new AlipayTradeQueryRequest();
-    AlipayTradeQueryModel model = new AlipayTradeQueryModel();
-    model.setOutTradeNo(outTradeNo);
-    request.setBizModel(model);
-    if (!StringUtils.isEmpty(appAuthToken)) {
-      request.putOtherTextParam("app_auth_token", appAuthToken);
-    }
-    AlipayTradeQueryResponse response = alipayClient.execute(request);
-    log.info("response: {}" + response.getBody());
-    return response;
-  }
-
-  /**
-   * 交易关闭接口.
-   * <p>
-   * https://docs.open.alipay.com/api_1/alipay.trade.close/
-   */
-  public AlipayTradeCloseResponse tradeClose(String outTradeNo, String appAuthToken) throws AlipayApiException {
-    AlipayTradeCloseRequest request = new AlipayTradeCloseRequest();
-    AlipayTradeCloseModel model = new AlipayTradeCloseModel();
-    model.setOutTradeNo(outTradeNo);
-    request.setBizModel(model);
-    if (!StringUtils.isEmpty(appAuthToken)) {
-      request.putOtherTextParam("app_auth_token", appAuthToken);
-    }
-    AlipayTradeCloseResponse response = alipayClient.execute(request);
     log.info("response: {}" + response.getBody());
     return response;
   }
