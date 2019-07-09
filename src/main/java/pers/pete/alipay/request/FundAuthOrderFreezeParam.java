@@ -29,6 +29,11 @@ public class FundAuthOrderFreezeParam extends CommonParam {
    */
   private String payTimeOut;
 
+  /**
+   * 支付宝服务器主动通知商户服务器里指定的页面http/https路径。
+   */
+  private String notifyUrl;
+
   public String getAuthCode() {
     return authCode;
   }
@@ -75,5 +80,13 @@ public class FundAuthOrderFreezeParam extends CommonParam {
 
   public void setPayTimeOut(String payTimeOut) {
     this.payTimeOut = payTimeOut;
+  }
+
+  public String getNotifyUrl() {
+    return notifyUrl;
+  }
+
+  public void setNotifyUrl(String notifyUrl) {
+    this.notifyUrl = notifyUrl;
   }
 }

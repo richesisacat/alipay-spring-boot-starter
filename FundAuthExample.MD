@@ -2,10 +2,10 @@
 
 ```
 @RestController
-@RequestMapping("/alipay_auth")
+@RequestMapping("/fund_auth")
 @Slf4j
 @Api("支付宝预售权")
-public class AlipayAuthApi {
+public class FundAuthApi {
 
     @Autowired
     private AlipayTemplate alipayTemplate;

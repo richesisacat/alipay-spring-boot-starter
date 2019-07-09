@@ -1,6 +1,6 @@
 package pers.pete.alipay.request;
 
-public class FundAuthVoucherParam extends CommonParam {
+public class FundAuthOrderVoucherCreateParam extends CommonParam {
 
   /**
    * 必选 商户授权资金订单号，创建后不能修改，需要保证在商户端不重复。
@@ -26,6 +26,11 @@ public class FundAuthVoucherParam extends CommonParam {
    * 可选 该笔订单允许的最晚付款时间，逾期将关闭该笔订单，如果为空，默认15m
    */
   private String payTimeOut;
+
+  /**
+   * 支付宝服务器主动通知商户服务器里指定的页面http/https路径。
+   */
+  private String notifyUrl;
 
   public String getOutOrderNo() {
     return outOrderNo;
@@ -65,5 +70,13 @@ public class FundAuthVoucherParam extends CommonParam {
 
   public void setPayTimeOut(String payTimeOut) {
     this.payTimeOut = payTimeOut;
+  }
+
+  public String getNotifyUrl() {
+    return notifyUrl;
+  }
+
+  public void setNotifyUrl(String notifyUrl) {
+    this.notifyUrl = notifyUrl;
   }
 }

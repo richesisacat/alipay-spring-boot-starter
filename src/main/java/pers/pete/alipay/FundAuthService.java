@@ -2,7 +2,6 @@ package pers.pete.alipay;
 
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
-import com.alipay.api.AlipayRequest;
 import com.alipay.api.domain.AlipayFundAuthOperationDetailQueryModel;
 import com.alipay.api.domain.AlipayFundAuthOrderFreezeModel;
 import com.alipay.api.domain.AlipayFundAuthOrderUnfreezeModel;
@@ -23,12 +22,11 @@ import com.alipay.api.response.AlipayTradePayResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
-import pers.pete.alipay.request.CommonParam;
 import pers.pete.alipay.request.FundAuthOrderFreezeParam;
+import pers.pete.alipay.request.FundAuthOrderUnFreezeParam;
+import pers.pete.alipay.request.FundAuthOrderVoucherCreateParam;
 import pers.pete.alipay.request.FundAuthQueryParam;
 import pers.pete.alipay.request.FundAuthTradePayParam;
-import pers.pete.alipay.request.FundAuthUnfreezeParam;
-import pers.pete.alipay.request.FundAuthVoucherParam;
 import pers.pete.alipay.request.TradeRefundParam;
 
 @Slf4j
@@ -64,7 +62,9 @@ public class FundAuthService {
     if (!StringUtils.isEmpty(param.getAppAuthToken())) {
       request.putOtherTextParam("app_auth_token", param.getAppAuthToken());
     }
-    appand(request, param);
+    if (!StringUtils.isEmpty(param.getNotifyUrl())) {
+      request.setNotifyUrl(param.getNotifyUrl());
+    }
     AlipayFundAuthOrderFreezeResponse response = alipayClient.execute(request);  //需要先创建DefaultAlipayClient类型对象alipayclient
     log.info("response:  {}" + response.getBody());
     return response;
@@ -75,7 +75,7 @@ public class FundAuthService {
    * <p>
    * https://docs.open.alipay.com/api_28/alipay.fund.auth.order.voucher.create
    */
-  public AlipayFundAuthOrderVoucherCreateResponse fundAuthOrderVoucherCreate(FundAuthVoucherParam param) throws AlipayApiException {
+  public AlipayFundAuthOrderVoucherCreateResponse fundAuthOrderVoucherCreate(FundAuthOrderVoucherCreateParam param) throws AlipayApiException {
     AlipayFundAuthOrderVoucherCreateRequest request = new AlipayFundAuthOrderVoucherCreateRequest();
     AlipayFundAuthOrderVoucherCreateModel model = new AlipayFundAuthOrderVoucherCreateModel();
     model.setOutOrderNo(param.getOutOrderNo());
@@ -92,7 +92,9 @@ public class FundAuthService {
     if (!StringUtils.isEmpty(param.getAppAuthToken())) {
       request.putOtherTextParam("app_auth_token", param.getAppAuthToken());
     }
-    appand(request, param);
+    if (!StringUtils.isEmpty(param.getNotifyUrl())) {
+      request.setNotifyUrl(param.getNotifyUrl());
+    }
     AlipayFundAuthOrderVoucherCreateResponse response = alipayClient.execute(request);
     log.info("response:  {}" + response.getBody());
     return response;
@@ -104,7 +106,7 @@ public class FundAuthService {
    * <p>
    * https://docs.open.alipay.com/api_28/alipay.fund.auth.order.unfreeze
    */
-  public AlipayFundAuthOrderUnfreezeResponse fundAuthOrderUnFreeze(FundAuthUnfreezeParam param) throws AlipayApiException {
+  public AlipayFundAuthOrderUnfreezeResponse fundAuthOrderUnFreeze(FundAuthOrderUnFreezeParam param) throws AlipayApiException {
     AlipayFundAuthOrderUnfreezeRequest request = new AlipayFundAuthOrderUnfreezeRequest();
     AlipayFundAuthOrderUnfreezeModel model = new AlipayFundAuthOrderUnfreezeModel();
     model.setAuthNo(param.getAuthNo());  //  支付宝资金授权订单号，在授权冻结成功时返回需要入库保存
@@ -116,7 +118,6 @@ public class FundAuthService {
     if (!StringUtils.isEmpty(param.getAppAuthToken())) {
       request.putOtherTextParam("app_auth_token", param.getAppAuthToken());
     }
-    appand(request, param);
     AlipayFundAuthOrderUnfreezeResponse response = alipayClient.execute(request);
     log.info("response:  {}" + response.getBody());
     return response;
@@ -143,13 +144,12 @@ public class FundAuthService {
     return response;
   }
 
-
   /**
    * 交易创建并支付接口.
    * <p>
    * alipay.trade.pay
    */
-  public AlipayTradePayResponse fundAuthTradePay(FundAuthTradePayParam param) throws AlipayApiException {
+  public AlipayTradePayResponse tradePay(FundAuthTradePayParam param) throws AlipayApiException {
     AlipayTradePayRequest request = new AlipayTradePayRequest();
     AlipayTradePayModel model = new AlipayTradePayModel();
     model.setOutTradeNo(param.getOutTradeNo());
@@ -157,7 +157,7 @@ public class FundAuthService {
     model.setProductCode("PRE_AUTH");
     model.setSubject(param.getSubject());
     model.setBuyerId(param.getBuyerId());
-    model.setSellerId(appid);
+    model.setSellerId(param.getSellerId());
     model.setTotalAmount(param.getTotalAmount());
     model.setBody(param.getBody());
     model.setAuthNo(param.getAuthNo());
@@ -169,7 +169,6 @@ public class FundAuthService {
     if (!StringUtils.isEmpty(param.getAppAuthToken())) {
       request.putOtherTextParam("app_auth_token", param.getAppAuthToken());
     }
-    appand(request, param);
     AlipayTradePayResponse response = alipayClient.execute(request);
     log.info("response: {}" + response.getBody());
     return response;
@@ -194,12 +193,6 @@ public class FundAuthService {
     AlipayTradeRefundResponse response = alipayClient.execute(request);
     log.info("response: {}" + response.getBody());
     return response;
-  }
-
-  private void appand(AlipayRequest request, CommonParam param) {
-    if (!StringUtils.isEmpty(param.getNotifyUrl())) {
-      request.setNotifyUrl(param.getNotifyUrl());
-    }
   }
 
 }

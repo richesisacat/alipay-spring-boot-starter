@@ -1,6 +1,6 @@
 package pers.pete.alipay.request;
 
-public class FundAuthUnfreezeParam extends CommonParam {
+public class FundAuthOrderUnFreezeParam extends CommonParam {
 
   /**
    * 必选 支付宝资金授权订单号，在授权冻结成功时返回需要入库保存
@@ -8,7 +8,7 @@ public class FundAuthUnfreezeParam extends CommonParam {
   private String authNo;
 
   /**
-   * 必选 商户本次资金操作的请求流水号
+   * 必选 商户本次资金操作的请求流水号，注意此订单号必须与冻结订单号不同，不然会报参数缺失或异常
    */
   private String outRequestNo;
 

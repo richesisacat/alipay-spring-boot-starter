@@ -7,19 +7,6 @@ public class CommonParam {
    */
   protected String appAuthToken;
 
-  /**
-   * 支付宝服务器主动通知商户服务器里指定的页面http/https路径。
-   */
-  protected String notifyUrl;
-
-  public String getNotifyUrl() {
-    return notifyUrl;
-  }
-
-  public void setNotifyUrl(String notifyUrl) {
-    this.notifyUrl = notifyUrl;
-  }
-
   public String getAppAuthToken() {
     return appAuthToken;
   }

@@ -3,7 +3,7 @@ package pers.pete.alipay.request;
 public class FundAuthTradePayParam extends CommonParam {
 
   /**
-   * 必填 商户交易流水号与冻结不同
+   * 必填 商户交易流水号与冻结订单号不同
    */
   private String outTradeNo;
 
@@ -21,6 +21,11 @@ public class FundAuthTradePayParam extends CommonParam {
    * 必填 买家id 预授权冻结接口返回 查询接口返回
    */
   private String buyerId;
+
+  /**
+   * 必填 卖家支付宝uid 在支付宝商户账户管理-角色身份中的PID
+   */
+  private String sellerId;
 
   /**
    * 选填 订单描述
@@ -79,5 +84,13 @@ public class FundAuthTradePayParam extends CommonParam {
 
   public void setTotalAmount(String totalAmount) {
     this.totalAmount = totalAmount;
+  }
+
+  public String getSellerId() {
+    return sellerId;
+  }
+
+  public void setSellerId(String sellerId) {
+    this.sellerId = sellerId;
   }
 }

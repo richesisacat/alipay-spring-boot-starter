@@ -22,8 +22,8 @@ import pers.pete.alipay.request.FundAuthTradePayParam;
 import pers.pete.alipay.request.TradePayParam;
 import pers.pete.alipay.request.TradePrecreateParam;
 import pers.pete.alipay.request.TradeRefundParam;
-import pers.pete.alipay.request.FundAuthUnfreezeParam;
-import pers.pete.alipay.request.FundAuthVoucherParam;
+import pers.pete.alipay.request.FundAuthOrderUnFreezeParam;
+import pers.pete.alipay.request.FundAuthOrderVoucherCreateParam;
 
 @Slf4j
 public class AlipayTemplate {
@@ -57,14 +57,14 @@ public class AlipayTemplate {
   /**
    * auth-2 资金授权发码(用户扫商户).
    */
-  public AlipayFundAuthOrderVoucherCreateResponse fundAuthOrderVoucherCreate(FundAuthVoucherParam param) throws AlipayApiException {
+  public AlipayFundAuthOrderVoucherCreateResponse fundAuthOrderVoucherCreate(FundAuthOrderVoucherCreateParam param) throws AlipayApiException {
     return fundAuthService.fundAuthOrderVoucherCreate(param);
   }
 
   /**
    * auth-3 资金授权解冻.
    */
-  public AlipayFundAuthOrderUnfreezeResponse fundAuthOrderUnFreeze(FundAuthUnfreezeParam param) throws AlipayApiException {
+  public AlipayFundAuthOrderUnfreezeResponse fundAuthOrderUnFreeze(FundAuthOrderUnFreezeParam param) throws AlipayApiException {
     return fundAuthService.fundAuthOrderUnFreeze(param);
   }
 
@@ -72,7 +72,7 @@ public class AlipayTemplate {
    * auth-4 交易创建并支付(预售权转消费).
    */
   public AlipayTradePayResponse fundAuthTradePay(FundAuthTradePayParam param) throws AlipayApiException {
-    return fundAuthService.fundAuthTradePay(param);
+    return fundAuthService.tradePay(param);
   }
 
   /**

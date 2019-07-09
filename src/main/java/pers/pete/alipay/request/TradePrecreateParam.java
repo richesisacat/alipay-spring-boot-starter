@@ -27,6 +27,11 @@ public class TradePrecreateParam extends CommonParam {
    */
   private String timeoutExpress;
 
+  /**
+   * 支付宝服务器主动通知商户服务器里指定的页面http/https路径。
+   */
+  private String notifyUrl;
+
   public String getOutOrderNo() {
     return outOrderNo;
   }
@@ -65,5 +70,13 @@ public class TradePrecreateParam extends CommonParam {
 
   public void setTimeoutExpress(String timeoutExpress) {
     this.timeoutExpress = timeoutExpress;
+  }
+
+  public String getNotifyUrl() {
+    return notifyUrl;
+  }
+
+  public void setNotifyUrl(String notifyUrl) {
+    this.notifyUrl = notifyUrl;
   }
 }

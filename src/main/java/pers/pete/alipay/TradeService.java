@@ -2,7 +2,6 @@ package pers.pete.alipay;
 
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
-import com.alipay.api.AlipayRequest;
 import com.alipay.api.domain.AlipayTradeCloseModel;
 import com.alipay.api.domain.AlipayTradePayModel;
 import com.alipay.api.domain.AlipayTradePrecreateModel;
@@ -17,7 +16,6 @@ import com.alipay.api.response.AlipayTradePrecreateResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
-import pers.pete.alipay.request.CommonParam;
 import pers.pete.alipay.request.TradePayParam;
 import pers.pete.alipay.request.TradePrecreateParam;
 
@@ -48,7 +46,9 @@ public class TradeService {
     if (!StringUtils.isEmpty(param.getAppAuthToken())) {
       request.putOtherTextParam("app_auth_token", param.getAppAuthToken());
     }
-    appand(request, param);
+    if (!StringUtils.isEmpty(param.getNotifyUrl())) {
+      request.setNotifyUrl(param.getNotifyUrl());
+    }
     AlipayTradePrecreateResponse response = alipayClient.execute(request);
     log.info("response:  {}" + response.getBody());
     return response;
@@ -106,19 +106,16 @@ public class TradeService {
     model.setTotalAmount(param.getTotalAmount());
     model.setTransCurrency("CNY");
     model.setBody(param.getBody());
+    model.setAuthCode(param.getAuthCode());
     if (!StringUtils.isEmpty(param.getAppAuthToken())) {
       request.putOtherTextParam("app_auth_token", param.getAppAuthToken());
     }
-    appand(request, param);
-    AlipayTradePayResponse response = alipayClient.execute(request);
-    log.info("response:  {}" + response.getBody());
-    return response;
-  }
-
-  private void appand(AlipayRequest request, CommonParam param) {
     if (!StringUtils.isEmpty(param.getNotifyUrl())) {
       request.setNotifyUrl(param.getNotifyUrl());
     }
+    AlipayTradePayResponse response = alipayClient.execute(request);
+    log.info("response:  {}" + response.getBody());
+    return response;
   }
 
 }

@@ -27,6 +27,11 @@ public class TradePayParam extends CommonParam {
    */
   private String body;
 
+  /**
+   * 支付宝服务器主动通知商户服务器里指定的页面http/https路径。
+   */
+  private String notifyUrl;
+
   public String getOutTradeNo() {
     return outTradeNo;
   }
@@ -65,5 +70,13 @@ public class TradePayParam extends CommonParam {
 
   public void setBody(String body) {
     this.body = body;
+  }
+
+  public String getNotifyUrl() {
+    return notifyUrl;
+  }
+
+  public void setNotifyUrl(String notifyUrl) {
+    this.notifyUrl = notifyUrl;
   }
 }
