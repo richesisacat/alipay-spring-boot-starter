@@ -101,17 +101,15 @@ public class TradeService {
     AlipayTradePayModel model = new AlipayTradePayModel();
     model.setOutTradeNo(param.getOutTradeNo());
     model.setScene("bar_code");
+    model.setAuthCode(param.getAuthCode());
     model.setProductCode("FACE_TO_FACE_PAYMENT");
     model.setSubject(param.getSubject());
     model.setTotalAmount(param.getTotalAmount());
-    model.setTransCurrency("CNY");
     model.setBody(param.getBody());
-    model.setAuthCode(param.getAuthCode());
+    request.setBizModel(model);
+
     if (!StringUtils.isEmpty(param.getAppAuthToken())) {
       request.putOtherTextParam("app_auth_token", param.getAppAuthToken());
-    }
-    if (!StringUtils.isEmpty(param.getNotifyUrl())) {
-      request.setNotifyUrl(param.getNotifyUrl());
     }
     AlipayTradePayResponse response = alipayClient.execute(request);
     log.info("response:  {}" + response.getBody());

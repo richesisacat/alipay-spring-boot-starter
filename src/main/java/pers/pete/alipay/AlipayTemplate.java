@@ -90,17 +90,17 @@ public class AlipayTemplate {
   }
 
   /**
-   * trade-2 线下交易预创建.(用户扫商户)
-   */
-  public AlipayTradePrecreateResponse tradePercreate(TradePrecreateParam param) throws AlipayApiException {
-    return tradeService.tradePercreate(param);
-  }
-
-  /**
-   * trade-3 交易支付(商户扫用户).
+   * trade-2 交易支付(商户扫用户).
    */
   public AlipayTradePayResponse tradePay(TradePayParam param) throws AlipayApiException {
     return tradeService.tradePay(param);
+  }
+
+  /**
+   * trade-3 线下交易预创建.(用户扫商户)
+   */
+  public AlipayTradePrecreateResponse tradePercreate(TradePrecreateParam param) throws AlipayApiException {
+    return tradeService.tradePercreate(param);
   }
 
   /**

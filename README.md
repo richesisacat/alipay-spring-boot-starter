@@ -23,12 +23,12 @@ alipay:
 ## 流程说明
 ### 一. 预售权流程
 #### 1. 支付
-- 用户扫商家
-  1. "auth-2 fundAuthOrderVoucherCreate 资金授权发码"，若参数包含回调则不用执行下步
-  1. 轮询"auth-5 fundAuthQuery 资金授权操作查询"，判断用户是否支付
 - 商家扫用户
   1. "auth-1 fundAuthOrderFreeze 资金授权冻结"
-  
+- 用户扫商家
+  1. "auth-2 fundAuthOrderVoucherCreate 资金授权发码"，若参数包含回调则不用执行下步
+  1. 轮询"auth-5 fundAuthQuery 资金授权操作查询"，判断用户是否支付，判断标准：status="SUCCESS"
+
 #### 2. 解冻
 > 当用户无消费时需要将冻结的金额全部返还用户 
 - "auth-3 fundAuthOrderUnFreeze 资金授权解冻"
@@ -45,19 +45,20 @@ alipay:
 > 过程中随时可调查询接口，查询流程相关信息
 - "auth-5 fundAuthQuery 资金授权操作查询"
 
-#### 6. 预售权相关接口[调用示例](./FundAuthExample.MD)
+#### 6. 接口[调用示例](./FundAuthExample.MD)
 
 ### 二. 当面付流程
 #### 1. 支付
-- 用户扫商家
-  1. "trade-2 tradePercreate 线下交易预创建"，若参数包含回调则不用执行下步
-  1. 轮询"trade-1 tradeQuery 交易结果查询"，判断用户是否支付
 - 商家扫用户
-  1. "trade-3 tradePay 交易支付"
-  1. 轮询"trade-1 tradeQuery 交易结果查询"，判断用户是否支付
+  1. "trade-2 tradePay 交易支付"
+- 用户扫商家
+  1. "trade-3 tradePercreate 线下交易预创建"，若参数包含回调则不用执行下步
+  1. 轮询"trade-1 tradeQuery 交易结果查询"，判断用户是否支付，判断标准：tradeStatus="TRADE_SUCCESS"
 
 #### 2. 退款
 - "trade-4 tradeRefund 交易同步退款"
 
 #### 3. 交易关闭
 - "trade-5 tradeClose 交易关闭"
+
+#### 6. 接口[调用示例](./TradeExample.MD)

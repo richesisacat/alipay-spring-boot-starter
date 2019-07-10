@@ -62,9 +62,6 @@ public class FundAuthService {
     if (!StringUtils.isEmpty(param.getAppAuthToken())) {
       request.putOtherTextParam("app_auth_token", param.getAppAuthToken());
     }
-    if (!StringUtils.isEmpty(param.getNotifyUrl())) {
-      request.setNotifyUrl(param.getNotifyUrl());
-    }
     AlipayFundAuthOrderFreezeResponse response = alipayClient.execute(request);  //需要先创建DefaultAlipayClient类型对象alipayclient
     log.info("response:  {}" + response.getBody());
     return response;
