@@ -1,4 +1,4 @@
-package pers.pete.alipay;
+package pers.pete.alipay.service;
 
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
@@ -6,18 +6,22 @@ import com.alipay.api.domain.AlipayTradeCloseModel;
 import com.alipay.api.domain.AlipayTradePayModel;
 import com.alipay.api.domain.AlipayTradePrecreateModel;
 import com.alipay.api.domain.AlipayTradeQueryModel;
+import com.alipay.api.domain.AlipayTradeRefundModel;
 import com.alipay.api.request.AlipayTradeCloseRequest;
 import com.alipay.api.request.AlipayTradePayRequest;
 import com.alipay.api.request.AlipayTradePrecreateRequest;
 import com.alipay.api.request.AlipayTradeQueryRequest;
+import com.alipay.api.request.AlipayTradeRefundRequest;
 import com.alipay.api.response.AlipayTradeCloseResponse;
 import com.alipay.api.response.AlipayTradePayResponse;
 import com.alipay.api.response.AlipayTradePrecreateResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
+import com.alipay.api.response.AlipayTradeRefundResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import pers.pete.alipay.request.TradePayParam;
 import pers.pete.alipay.request.TradePrecreateParam;
+import pers.pete.alipay.request.TradeRefundParam;
 
 @Slf4j
 public class TradeService {
@@ -113,6 +117,27 @@ public class TradeService {
     }
     AlipayTradePayResponse response = alipayClient.execute(request);
     log.info("response:  {}" + response.getBody());
+    return response;
+  }
+
+  /**
+   * 交易同步退款接口.
+   * <p>
+   * https://docs.open.alipay.com/api_1/alipay.trade.refund
+   */
+  public AlipayTradeRefundResponse tradeRefund(TradeRefundParam param) throws AlipayApiException {
+    AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();
+    AlipayTradeRefundModel model = new AlipayTradeRefundModel();
+    model.setOutTradeNo(param.getOutTradeNo());         //与预授权转支付商户订单号相同，代表对该笔交易退款
+    model.setRefundAmount(param.getRefundAmount());
+    model.setRefundReason(param.getRefundReason());
+    model.setOutRequestNo(param.getOutRequestNo());     //标识一次退款请求，同一笔交易多次退款需要保证唯一，如部分退款则此参数必传。
+    request.setBizModel(model);
+    if (!StringUtils.isEmpty(param.getAppAuthToken())) {
+      request.putOtherTextParam("app_auth_token", param.getAppAuthToken());
+    }
+    AlipayTradeRefundResponse response = alipayClient.execute(request);
+    log.info("response: {}" + response.getBody());
     return response;
   }
 

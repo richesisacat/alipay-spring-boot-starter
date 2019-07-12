@@ -16,14 +16,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import pers.pete.alipay.enums.Charset;
 import pers.pete.alipay.enums.SignType;
-import pers.pete.alipay.request.FundAuthQueryParam;
 import pers.pete.alipay.request.FundAuthOrderFreezeParam;
+import pers.pete.alipay.request.FundAuthOrderUnFreezeParam;
+import pers.pete.alipay.request.FundAuthOrderVoucherCreateParam;
+import pers.pete.alipay.request.FundAuthQueryParam;
 import pers.pete.alipay.request.FundAuthTradePayParam;
 import pers.pete.alipay.request.TradePayParam;
 import pers.pete.alipay.request.TradePrecreateParam;
 import pers.pete.alipay.request.TradeRefundParam;
-import pers.pete.alipay.request.FundAuthOrderUnFreezeParam;
-import pers.pete.alipay.request.FundAuthOrderVoucherCreateParam;
+import pers.pete.alipay.service.FundAuthService;
+import pers.pete.alipay.service.TradeService;
 
 @Slf4j
 public class AlipayTemplate {
@@ -43,7 +45,7 @@ public class AlipayTemplate {
       signType = SignType.RSA2;
     }
     AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do", appid, appPrivateKey, "json", charset.getValue(), alipayPublicKey, signType.name());
-    fundAuthService = new FundAuthService(appid, alipayClient);
+    fundAuthService = new FundAuthService(alipayClient);
     tradeService = new TradeService(alipayClient);
   }
 
@@ -107,7 +109,7 @@ public class AlipayTemplate {
    * trade-4 交易退款.
    */
   public AlipayTradeRefundResponse tradeRefund(TradeRefundParam param) throws AlipayApiException {
-    return fundAuthService.tradeRefund(param);
+    return tradeService.tradeRefund(param);
   }
 
   /**
