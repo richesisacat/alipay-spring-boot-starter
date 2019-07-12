@@ -46,6 +46,7 @@ public class TradeService {
     model.setBody(param.getBody());
     model.setProductCode("FACE_TO_FACE_PAYMENT");
     model.setTimeoutExpress(param.getTimeoutExpress());
+    model.setStoreId(param.getStoreId());
     request.setBizModel(model);
     if (!StringUtils.isEmpty(param.getAppAuthToken())) {
       request.putOtherTextParam("app_auth_token", param.getAppAuthToken());
@@ -110,6 +111,8 @@ public class TradeService {
     model.setSubject(param.getSubject());
     model.setTotalAmount(param.getTotalAmount());
     model.setBody(param.getBody());
+    model.setTimeoutExpress(param.getTimeoutExpress());
+    model.setStoreId(param.getStoreId());
     request.setBizModel(model);
 
     if (!StringUtils.isEmpty(param.getAppAuthToken())) {

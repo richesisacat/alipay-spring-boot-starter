@@ -24,15 +24,21 @@ import pers.pete.alipay.request.FundAuthTradePayParam;
 import pers.pete.alipay.request.TradePayParam;
 import pers.pete.alipay.request.TradePrecreateParam;
 import pers.pete.alipay.request.TradeRefundParam;
+import pers.pete.alipay.service.FaceService;
 import pers.pete.alipay.service.FundAuthService;
 import pers.pete.alipay.service.TradeService;
 
 @Slf4j
 public class AlipayTemplate {
 
+  // 预售权
   private FundAuthService fundAuthService;
 
+  // 当面付
   private TradeService tradeService;
+
+  // 刷脸支付
+  private FaceService faceService;
 
   public AlipayTemplate(String appid, String appPrivateKey, Charset charset, String alipayPublicKey, SignType signType) {
     if (StringUtils.isEmpty(appid) || StringUtils.isEmpty(appPrivateKey) || StringUtils.isEmpty(alipayPublicKey)) {
@@ -47,6 +53,7 @@ public class AlipayTemplate {
     AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do", appid, appPrivateKey, "json", charset.getValue(), alipayPublicKey, signType.name());
     fundAuthService = new FundAuthService(alipayClient);
     tradeService = new TradeService(alipayClient);
+    faceService = new FaceService(alipayClient);
   }
 
   /**

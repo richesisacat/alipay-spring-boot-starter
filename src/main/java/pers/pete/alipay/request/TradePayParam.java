@@ -8,7 +8,7 @@ public class TradePayParam extends CommonParam {
   private String outTradeNo;
 
   /**
-   * 必填 支付授权码
+   * 必填 支付授权码或扫脸成功后获取ftoken
    */
   private String authCode;
 
@@ -26,6 +26,20 @@ public class TradePayParam extends CommonParam {
    * 可选 对交易或商品的描述
    */
   private String body;
+
+  /**
+   * 可选 门店ID
+   */
+  private String storeId;
+
+  /**
+   * 可选 该笔订单允许的最晚付款时间，逾期将关闭交易。
+   * <p>
+   * 取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天（1c-当天的情况下，无论交易何时创建，都在0点关闭）。
+   * <p>
+   * 该参数数值不接受小数点， 如 1.5h，可转换为 90m
+   */
+  private String timeoutExpress;
 
   public String getOutTradeNo() {
     return outTradeNo;
@@ -65,5 +79,21 @@ public class TradePayParam extends CommonParam {
 
   public void setBody(String body) {
     this.body = body;
+  }
+
+  public String getTimeoutExpress() {
+    return timeoutExpress;
+  }
+
+  public void setTimeoutExpress(String timeoutExpress) {
+    this.timeoutExpress = timeoutExpress;
+  }
+
+  public String getStoreId() {
+    return storeId;
+  }
+
+  public void setStoreId(String storeId) {
+    this.storeId = storeId;
   }
 }

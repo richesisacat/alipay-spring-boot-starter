@@ -32,6 +32,11 @@ public class TradePrecreateParam extends CommonParam {
    */
   private String notifyUrl;
 
+  /**
+   * 可选 门店ID
+   */
+  private String storeId;
+
   public String getOutOrderNo() {
     return outOrderNo;
   }
@@ -78,5 +83,13 @@ public class TradePrecreateParam extends CommonParam {
 
   public void setNotifyUrl(String notifyUrl) {
     this.notifyUrl = notifyUrl;
+  }
+
+  public String getStoreId() {
+    return storeId;
+  }
+
+  public void setStoreId(String storeId) {
+    this.storeId = storeId;
   }
 }

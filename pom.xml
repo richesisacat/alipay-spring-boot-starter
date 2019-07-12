@@ -6,7 +6,7 @@
 
     <groupId>io.github.rich-is-cat</groupId>
     <artifactId>alipay-spring-boot-starter</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 
     <name>alipay-spring-boot-starter</name>
     <description>支付宝支付接口简单封装</description>
@@ -195,7 +195,7 @@
                 </executions>
             </plugin>
             <!-- GPG签名加密 -->
-            <plugin>
+           <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <executions>
@@ -207,7 +207,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 
