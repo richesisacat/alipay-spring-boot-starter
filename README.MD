@@ -1,7 +1,10 @@
 # 对支付宝支付接口的简单封装
 
+## 更新记录
+[CHANGELOG](./CHANGELOG.MD)
+
 ## 配置说明
-### 依赖
+### maven
 ```
 <dependency>
     <groupId>pers.pete</groupId>
