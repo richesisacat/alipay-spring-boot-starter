@@ -21,7 +21,7 @@ public class AlipayAutoConfigure {
 
   @Bean
   @ConditionalOnMissingBean
-  public AlipayTemplate init() {
+  public AlipayTemplate alipayTemplate() {
     return new AlipayTemplate(properties.getAppid(), properties.getAppPrivateKey(), properties.getCharset(),
       properties.getAlipayPublicKey(), properties.getSignType());
   }
