@@ -23,7 +23,7 @@ public class FaceService {
    * <p>
    * https://docs.open.alipay.com/api_1/alipay.trade.pay
    */
-  public AlipayTradePayResponse tradePay(TradePayParam param) throws AlipayApiException {
+  public AlipayTradePayResponse faceTradePay(TradePayParam param) throws AlipayApiException {
     AlipayTradePayRequest request = new AlipayTradePayRequest();
     AlipayTradePayModel model = new AlipayTradePayModel();
     model.setOutTradeNo(param.getOutTradeNo());

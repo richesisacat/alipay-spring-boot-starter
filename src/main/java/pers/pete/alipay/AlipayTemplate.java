@@ -125,4 +125,11 @@ public class AlipayTemplate {
   public AlipayTradeCloseResponse tradeClose(String tradeNo, String outTradeNo, String appAuthToken) throws AlipayApiException {
     return tradeService.tradeClose(tradeNo, outTradeNo, appAuthToken);
   }
+
+  /**
+   * face-1 扫脸统一收单交易支付.
+   */
+  public AlipayTradePayResponse faceTradePay(TradePayParam param) throws AlipayApiException {
+    return faceService.faceTradePay(param);
+  }
 }
