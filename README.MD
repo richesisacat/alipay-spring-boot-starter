@@ -36,6 +36,10 @@ alipay:
 > 当用户无消费时需要将冻结的金额全部返还用户 
 - "auth-3 fundAuthOrderUnFreeze 资金授权解冻"
 
+注意:入参中<br>
+buyerId (买家id) 来源:在预授权冻结接口、查询接口中均有返回.<br>
+sellerId (卖家支付宝uid) 来源:在支付宝商户账户管理-角色身份中的PID.
+
 #### 3. 转消费
 > 当用户消费时，将部分或全部金额转消费，并返还剩余金额
 - "auth-4 fundAuthTradePay 交易创建并支付"
