@@ -12,10 +12,12 @@ import com.alipay.api.response.AlipayTradePayResponse;
 import com.alipay.api.response.AlipayTradePrecreateResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
+import com.alipay.api.response.ZolozAuthenticationCustomerSmilepayInitializeResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import pers.pete.alipay.enums.Charset;
 import pers.pete.alipay.enums.SignType;
+import pers.pete.alipay.request.FaceInitializeParam;
 import pers.pete.alipay.request.FundAuthOrderFreezeParam;
 import pers.pete.alipay.request.FundAuthOrderUnFreezeParam;
 import pers.pete.alipay.request.FundAuthOrderVoucherCreateParam;
@@ -128,6 +130,13 @@ public class AlipayTemplate {
 
   /**
    * face-1 扫脸统一收单交易支付.
+   */
+  public ZolozAuthenticationCustomerSmilepayInitializeResponse faceInitialize(FaceInitializeParam param) throws AlipayApiException {
+    return faceService.faceInitialize(param);
+  }
+
+  /**
+   * face-2 扫脸统一收单交易支付.
    */
   public AlipayTradePayResponse faceTradePay(TradePayParam param) throws AlipayApiException {
     return faceService.faceTradePay(param);
