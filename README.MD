@@ -13,7 +13,7 @@
 </dependency>
 ```
 
-### 配置文件application.yml，若参数包含回调则不用执行下步
+### 配置文件application.yml
 ```
 alipay:
   appid: 
@@ -21,6 +21,17 @@ alipay:
   alipay-public-key: 
   app-private-key: 
   sign-type: rsa2
+```
+也可不配置，手动注册bean
+```
+@Configuration
+public class xxxConfig {
+
+    public AlipayTemplate alipayTemplate() {
+        return new AlipayTemplate(appid, appPrivateKey, charset, alipayPublicKey, signType);
+    }
+}
+
 ```
 
 ## 流程说明
@@ -69,3 +80,15 @@ sellerId (卖家支付宝uid) 来源:在支付宝商户账户管理-角色身份
 - "trade-5 tradeClose 交易关闭"
 
 #### 6. 接口[调用示例](./TradeExample.MD)
+
+### 三、刷脸付
+
+#### 流程
+移动端获取设备信息-->face-1 人脸初始化-->移动端唤起人脸识别-->face-2 扫脸统一收单交易支付
+
+#### face-1
+入参：zolozGetMetaInfo接口返回的metainfo对象中加入业务参数
+
+#### face-2
+trade-2类似，authCode值换成移动端获得的ftoken
+

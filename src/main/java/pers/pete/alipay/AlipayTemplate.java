@@ -129,7 +129,7 @@ public class AlipayTemplate {
   }
 
   /**
-   * face-1 扫脸统一收单交易支付.
+   * face-1 人脸初始化.
    */
   public ZolozAuthenticationCustomerSmilepayInitializeResponse faceInitialize(FaceInitializeParam param) throws AlipayApiException {
     return faceService.faceInitialize(param);
