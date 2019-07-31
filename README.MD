@@ -9,7 +9,7 @@
 <dependency>
     <groupId>pers.pete</groupId>
     <artifactId>alipay-spring-boot-starter</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 </dependency>
 ```
 
